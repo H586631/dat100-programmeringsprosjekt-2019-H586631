@@ -21,7 +21,7 @@ public class GPSPoint {
 	}
 	
 	
-
+//erlend 
 	// TODO - get/set metoder
 	public int getTime() {
 		
