@@ -50,7 +50,7 @@ public class GPSData {
 		System.out.println("====== Konvertert GPS Data - START ======");
 
 		for(GPSPoint gpspoint: gpspoints) {
-			System.out.println(gpspoint);
+			System.out.println(gpspoint.toString());
 		}
 		
 		System.out.println("====== Konvertert GPS Data - SLUTT ======");
