@@ -136,12 +136,12 @@ public class GPSComputer {
 	public double totalKcal(double weight) {
 
 		double totalkcal = 0;
-		double []speed = speeds();
+		//double []speed = speeds();
 		
-		for(int i = 0; i <gpspoints.length - 1; i++) {
-		totalkcal += kcal(weight, (gpspoints[i+1].getTime() - gpspoints[i].getTime()), speed[i]);
-		}
-		//totalkcal = kcal(weight, totalTime(), averageSpeed());
+		//for(int i = 0; i <gpspoints.length - 1; i++) {
+		//totalkcal += kcal(weight, (gpspoints[i+1].getTime() - gpspoints[i].getTime()), speed[i]);
+		//}
+		totalkcal = kcal(weight, totalTime(), averageSpeed());
 		return totalkcal;
 		
 	}
