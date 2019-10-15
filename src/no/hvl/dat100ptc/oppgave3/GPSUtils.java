@@ -9,16 +9,16 @@ public class GPSUtils {
 
 	public static double findMax(double[] da) {
 
-		double max; 
-		
+		double max;
+
 		max = da[0];
-		
+
 		for (double d : da) {
 			if (d > max) {
 				max = d;
 			}
 		}
-		
+
 		return max;
 	}
 
@@ -26,37 +26,40 @@ public class GPSUtils {
 
 		double min;
 
-		min  = da[0];
-		
-		for(double d : da){
-			if (d<min) {
+		min = da[0];
+
+		for (double d : da) {
+			if (d < min) {
 				min = d;
 			}
 		}
-		
+
 		return min;
 	}
 
 	public static double[] getLatitudes(GPSPoint[] gpspoints) {
-		
 
-		double [] latitudes = new double [gpspoints.length];
-		
-		for(int i = 0; i<gpspoints.length; i++) {
+		// oppretter ny double tabell til å lagre breddegrader
+		double[] latitudes = new double[gpspoints.length];
+
+		// kjører en løkke å lagre alle breddegrader til gpspunktobjektene. Finner det
+		// ved hjelp av .getLatitude().
+		for (int i = 0; i < gpspoints.length; i++) {
 			latitudes[i] = gpspoints[i].getLatitude();
 		}
-		
+
 		return latitudes;
 	}
 
 	public static double[] getLongitudes(GPSPoint[] gpspoints) {
 
-		double [] longitudes = new double [gpspoints.length];
-		
-		for(int i = 0; i<gpspoints.length; i++) {
+		// samme som for breddegrader
+		double[] longitudes = new double[gpspoints.length];
+
+		for (int i = 0; i < gpspoints.length; i++) {
 			longitudes[i] = gpspoints[i].getLongitude();
 		}
-		
+
 		return longitudes;
 
 	}
@@ -68,24 +71,23 @@ public class GPSUtils {
 		double d;
 		double latitude1, longitude1, latitude2, longitude2;
 
-		
+		// konverterer bredde- og lengdegrader til radianer
 		latitude1 = toRadians(gpspoint1.getLatitude());
 		latitude2 = toRadians(gpspoint2.getLatitude());
 		longitude1 = toRadians(gpspoint1.getLongitude());
 		longitude2 = toRadians(gpspoint2.getLongitude());
-		
+
+		// utregninger ved bruk av Haversine-formelen
 		double deltLat = latitude2 - latitude1;
 		double deltLong = longitude2 - longitude1;
-		
-		double a = pow(sin(deltLat/2), 2) + (cos(latitude1)*cos(latitude2)*pow(sin(deltLong/2), 2));
-		
-		double c = 2 * atan2(sqrt(a),sqrt(1-a));
-		
-		d = R * c;
-		
-		return d;
-		
 
+		double a = pow(sin(deltLat / 2), 2) + cos(latitude1) * cos(latitude2) * pow(sin(deltLong / 2), 2);
+
+		double c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+		d = R * c;
+
+		return d;
 
 	}
 
@@ -94,12 +96,15 @@ public class GPSUtils {
 		int secs;
 		double speed;
 
-		secs =  gpspoint2.getTime() - gpspoint1.getTime();
-		
+		// finner tid mellom to punkter
+		secs = gpspoint2.getTime() - gpspoint1.getTime();
+
+		// finner distanse mellom to punkter
 		double dist = distance(gpspoint1, gpspoint2);
-		
-		speed =  (dist/secs)*3.6;
-		
+
+		// regner ut fart mellom to punkter
+		speed = (dist / secs) * 3.6;
+
 		return speed;
 
 	}
@@ -109,32 +114,35 @@ public class GPSUtils {
 		String timestr;
 		String TIMESEP = ":";
 
-		int hr = secs/(60*60);
-		int min = (secs%(60*60))/60;
-		int sec = (secs%(60*60))%60;
-		
-		//Kan man forkorte dette?
-		timestr = String.format("%02d", hr) + TIMESEP + String.format("%02d", min) + TIMESEP + String.format("%02d", sec);   
+		// utregning av timer, minutt og sekund fra input secs
+		int hr = secs / (60 * 60);
+		int min = (secs % (60 * 60)) / 60;
+		int sec = (secs % (60 * 60)) % 60;
 
+		// legger inn at utskrift skal ha to siffer for timer, minutt og sekund, samt
+		// deles av ":"/TIMESEP
+		timestr = String.format("%02d", hr) + TIMESEP + String.format("%02d", min) + TIMESEP
+				+ String.format("%02d", sec);
+
+		// strengen får totalt 10 tegn med space som fylles på fra venstre
 		timestr = String.format("%10s", timestr);
 		return timestr;
 
-		
-
 	}
+
 	private static int TEXTWIDTH = 10;
 
 	public static String formatDouble(double d) {
 
 		String str;
-		
-		d = Math.round(d*100.0)/100.0;	
-		
-		str =  String.format("%1$"+TEXTWIDTH+ "s", d);
-		
+
+		// runder av til to desimaler
+		d = Math.round(d * 100.0) / 100.0;
+
+		// formaterer til ti tegn.
+		str = String.format("%1$" + TEXTWIDTH + "s", d);
+
 		return str;
 
-
-		
 	}
 }

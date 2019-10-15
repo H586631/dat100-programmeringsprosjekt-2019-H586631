@@ -9,7 +9,7 @@ public class GPSPoint {
 
 	public GPSPoint(int time, double latitude, double longitude, double elevation) {
 
-		// konstruktur erlend
+		// konstruktur
 
 		this.time = time;
 		this.latitude = latitude;
